@@ -1,6 +1,6 @@
 ﻿using deadlock.external;
 using deadlock.Pinvoke;
-using deadlock.Stuf;
+using deadlock.Stuff;
 using GameOverlay.Drawing;
 using GameOverlay.Windows;
 using System;
