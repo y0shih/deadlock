@@ -13,7 +13,7 @@ namespace deadlock.Drawing
         {
             Share = g.CreateSolidBrush(255, 0, 0, 255);
             Share2 = g.CreateSolidBrush(0, 0, 0, 100);
-            Consolas = g.CreateFont("Verdana", 12);
+            Consolas = g.CreateFont("Consolas", 14);
         }
 
         public static SolidBrush Share = null!;

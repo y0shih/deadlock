@@ -7,7 +7,7 @@ namespace offsetDump
         // Parent: CBodyComponent
         public static class CBodyComponentSkeletonInstance
         {
-            public const IntPtr m_skeletonInstance = 0x50; // CSkeletonInstance
+            public const nint m_skeletonInstance = 0x80; // CSkeletonInstance
         }
         // Parent: C_BaseEntity
         public static class C_BaseModelEntity
@@ -95,18 +95,18 @@ namespace offsetDump
         // Parent: CPlayer_MovementServices
         public static class CPlayer_MovementServices_Humanoid
         {
-            public const IntPtr m_flStepSoundTime = 0x1D8; // float32
-            public const IntPtr m_flFallVelocity = 0x1DC; // float32
-            public const IntPtr m_bInCrouch = 0x1E0; // bool
-            public const IntPtr m_nCrouchState = 0x1E4; // uint32
-            public const IntPtr m_flCrouchTransitionStartTime = 0x1E8; // GameTime_t
-            public const IntPtr m_bDucked = 0x1EC; // bool
-            public const IntPtr m_bDucking = 0x1ED; // bool
-            public const IntPtr m_bInDuckJump = 0x1EE; // bool
-            public const IntPtr m_groundNormal = 0x1F0; // Vector
-            public const IntPtr m_flSurfaceFriction = 0x1FC; // float32
-            public const IntPtr m_surfaceProps = 0x200; // CUtlStringToken
-            public const IntPtr m_nStepside = 0x210; // int32
+            public const nint m_flStepSoundTime = 0x1D8; // float32
+            public const nint m_flFallVelocity = 0x1DC; // float32
+            public const nint m_bInCrouch = 0x1E0; // bool
+            public const nint m_nCrouchState = 0x1E4; // uint32
+            public const nint m_flCrouchTransitionStartTime = 0x1E8; // GameTime_t
+            public const nint m_bDucked = 0x1EC; // bool
+            public const nint m_bDucking = 0x1ED; // bool
+            public const nint m_bInDuckJump = 0x1EE; // bool
+            public const nint m_groundNormal = 0x1F0; // Vector
+            public const nint m_flSurfaceFriction = 0x1FC; // float32
+            public const nint m_surfaceProps = 0x200; // CUtlStringToken
+            public const nint m_nStepside = 0x210; // int32
         }
         // Parent: C_BaseEntity
         public static class C_Team
@@ -262,7 +262,7 @@ namespace offsetDump
             public const nint m_tHeldItem = 0xE0; // CUtlStringToken
             public const nint m_vecImbuements = 0xE8; // C_UtlVectorEmbeddedNetworkVar<ItemImbuementPair_t>
             public const nint m_vecDynamicAbilityValues = 0x138; // C_UtlVectorEmbeddedNetworkVar<DynamicAbilityValues_t>
-            public const nint m_vecStatViewerModifierValues = 0x188; // C_UtlVectorEmbeddedNetworkVar<StatViewerModifierValues_t>
+            public const nint m_vecStatViewerModifierValues = 0x188; // C_UtlVectorEmbeddedNetworkVar<StatViewerModifierValues_t>kVarNames: m_iLastHits (int32)
         }
         // Parent: CPlayerPawnComponent
         public static class CPlayer_ObserverServices
