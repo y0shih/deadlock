@@ -460,35 +460,33 @@ namespace dumper {
             }
             // Parent: CBasePlayerController
             namespace CCitadelPlayerController {
-                constexpr std::ptrdiff_t m_ePlayState = 0x6F0; // EPlayerPlayState
-                constexpr std::ptrdiff_t m_iGuidedBotMatchLastHits = 0x6F4; // int32
-                constexpr std::ptrdiff_t m_iGuidedBotMatchOrbsSecured = 0x6F8; // int32
-                constexpr std::ptrdiff_t m_iGuidedBotMatchOrbsDenied = 0x6FC; // int32
-                constexpr std::ptrdiff_t m_iGuidedBotMatchDamageToGuardians = 0x700; // int32
-                constexpr std::ptrdiff_t m_iGuidedBotMatchDamageToPlayers = 0x704; // int32
-                constexpr std::ptrdiff_t m_iGuidedBotMatchDamageTaken = 0x708; // int32
-                constexpr std::ptrdiff_t m_iGuidedBotMatchNetWorth = 0x70C; // int32
-                constexpr std::ptrdiff_t m_iGuidedBotMatchModsPurchased = 0x710; // int32
-                constexpr std::ptrdiff_t m_iGuidedBotMatchAbilityUpgrades = 0x714; // int32
-                constexpr std::ptrdiff_t m_flGuideBotMatchLastTaskNagVO = 0x718; // float32
-                constexpr std::ptrdiff_t m_flGuideBotLastTimeTaskCompleted = 0x71C; // float32
-                constexpr std::ptrdiff_t m_eGuidedBotMatchObjective = 0x720; // EGuidedBotMatchObjective
-                constexpr std::ptrdiff_t m_nAssignedLane = 0x724; // int8
-                constexpr std::ptrdiff_t m_nOriginalLaneAssignment = 0x725; // int8
-                constexpr std::ptrdiff_t m_bSwapCastModeAbility1 = 0x726; // bool
-                constexpr std::ptrdiff_t m_bSwapCastModeAbility2 = 0x727; // bool
-                constexpr std::ptrdiff_t m_bSwapCastModeAbility3 = 0x728; // bool
-                constexpr std::ptrdiff_t m_bSwapCastModeAbility4 = 0x729; // bool
-                constexpr std::ptrdiff_t m_bIsKingPanda = 0x72A; // bool
-                constexpr std::ptrdiff_t m_bBotDisconnectTakeover = 0x72B; // bool
-                constexpr std::ptrdiff_t m_bInTeamChat = 0x72C; // bool
-                constexpr std::ptrdiff_t m_bInPartyChat = 0x72D; // bool
-                constexpr std::ptrdiff_t m_hHeroPawn = 0x730; // CHandle<C_CitadelPlayerPawn>
-                constexpr std::ptrdiff_t m_PlayerDataGlobal = 0x758; // PlayerDataGlobal_t
-                constexpr std::ptrdiff_t m_nDeathReplayAvailable = 0x930; // int8
-                constexpr std::ptrdiff_t m_unLobbyPlayerSlot = 0x931; // CitadelLobbyPlayerSlot_t
-                constexpr std::ptrdiff_t m_bHasCheckedFriendName = 0x932; // bool
-                constexpr std::ptrdiff_t m_sFriendName = 0x938; // CUtlString
+                public const nint m_ePlayState = 0x6F8; // EPlayerPlayState
+                public const nint m_iGuidedBotMatchLastHits = 0x6FC; // int32
+                public const nint m_iGuidedBotMatchOrbsSecured = 0x700; // int32
+                public const nint m_iGuidedBotMatchOrbsDenied = 0x704; // int32
+                public const nint m_iGuidedBotMatchDamageToGuardians = 0x708; // int32
+                public const nint m_iGuidedBotMatchDamageToPlayers = 0x70C; // int32
+                public const nint m_iGuidedBotMatchDamageTaken = 0x710; // int32
+                public const nint m_iGuidedBotMatchNetWorth = 0x714; // int32
+                public const nint m_iGuidedBotMatchModsPurchased = 0x718; // int32
+                public const nint m_iGuidedBotMatchAbilityUpgrades = 0x71C; // int32
+                public const nint m_flGuideBotMatchLastTaskNagVO = 0x720; // float32
+                public const nint m_flGuideBotLastTimeTaskCompleted = 0x724; // float32
+                public const nint m_eGuidedBotMatchObjective = 0x728; // EGuidedBotMatchObjective
+                public const nint m_nCurrentRank = 0x72C; // int32
+                public const nint m_nAssignedLane = 0x730; // int8
+                public const nint m_nOriginalLaneAssignment = 0x731; // int8
+                public const nint m_bIsKingPanda = 0x732; // bool
+                public const nint m_bBotDisconnectTakeover = 0x733; // bool
+                public const nint m_bInTeamChat = 0x734; // bool
+                public const nint m_bInPartyChat = 0x735; // bool
+                public const nint m_unHeroBuildID = 0x738; // HeroBuildID_t
+                public const nint m_hHeroPawn = 0x73C; // CHandle<C_CitadelPlayerPawn>
+                public const nint m_PlayerDataGlobal = 0x778; // PlayerDataGlobal_t
+                public const nint m_nDeathReplayAvailable = 0x950; // int8
+                public const nint m_unLobbyPlayerSlot = 0x951; // CitadelLobbyPlayerSlot_t
+                public const nint m_bHasCheckedFriendName = 0x952; // bool
+                public const nint m_sFriendName = 0x958; // CUtlString
             }
             // Parent: None
             namespace CGameSceneNode {
