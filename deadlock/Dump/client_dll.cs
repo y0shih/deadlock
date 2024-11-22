@@ -78,7 +78,7 @@ namespace offsetDump
         public static class CBodyComponent
         {
             public const nint m_pSceneNode = 0x8; // CGameSceneNode*
-            public const nint __m_pChainEntity = 0x48; // CNetworkVarChainer
+            public const nint __m_pChainEntity = 0x48;
         }
         // Parent: CGameSceneNode
         public static class CSkeletonInstance
@@ -139,83 +139,83 @@ namespace offsetDump
         // Parent: C_BaseCombatCharacter
         public static class C_BasePlayerPawn
         {
-            public const nint m_pWeaponServices = 0xD28; // CPlayer_WeaponServices*
-            public const nint m_pItemServices = 0xD30; // CPlayer_ItemServices*
-            public const nint m_pAutoaimServices = 0xD38; // CPlayer_AutoaimServices*
-            public const nint m_pObserverServices = 0xD40; // CPlayer_ObserverServices*
-            public const nint m_pWaterServices = 0xD48; // CPlayer_WaterServices*
-            public const nint m_pUseServices = 0xD50; // CPlayer_UseServices*
-            public const nint m_pFlashlightServices = 0xD58; // CPlayer_FlashlightServices*
-            public const nint m_pCameraServices = 0xD60; // CPlayer_CameraServices*
-            public const nint m_pMovementServices = 0xD68; // CPlayer_MovementServices*
-            public const nint m_ServerViewAngleChanges = 0xD78; // C_UtlVectorEmbeddedNetworkVar<ViewAngleServerChange_t>
-            public const nint v_angle = 0xDE0; // QAngle
-            public const nint v_anglePrevious = 0xDEC; // QAngle
-            public const nint m_iHideHUD = 0xDF8; // uint32
-            public const nint m_skybox3d = 0xE00; // sky3dparams_t
-            public const nint m_flDeathTime = 0xE90; // GameTime_t
-            public const nint m_vecPredictionError = 0xE94; // Vector
-            public const nint m_flPredictionErrorTime = 0xEA0; // GameTime_t
-            public const nint m_vecLastCameraSetupLocalOrigin = 0xEA4; // Vector
-            public const nint m_flLastCameraSetupTime = 0xEB0; // GameTime_t
-            public const nint m_flFOVSensitivityAdjust = 0xEB4; // float32
-            public const nint m_flMouseSensitivity = 0xEB8; // float32
-            public const nint m_vOldOrigin = 0xEBC; // Vector
-            public const nint m_flOldSimulationTime = 0xEC8; // float32
-            public const nint m_nLastExecutedCommandNumber = 0xECC; // int32
-            public const nint m_nLastExecutedCommandTick = 0xED0; // int32
-            public const nint m_hController = 0xED4; // CHandle<CBasePlayerController>
-            public const nint m_hDefaultController = 0xED8; // CHandle<CBasePlayerController>
-            public const nint m_bIsSwappingToPredictableController = 0xEDC; // bool
+            public const nint m_pWeaponServices = 0xD20; // CPlayer_WeaponServices*
+            public const nint m_pItemServices = 0xD28; // CPlayer_ItemServices*
+            public const nint m_pAutoaimServices = 0xD30; // CPlayer_AutoaimServices*
+            public const nint m_pObserverServices = 0xD38; // CPlayer_ObserverServices*
+            public const nint m_pWaterServices = 0xD40; // CPlayer_WaterServices*
+            public const nint m_pUseServices = 0xD48; // CPlayer_UseServices*
+            public const nint m_pFlashlightServices = 0xD50; // CPlayer_FlashlightServices*
+            public const nint m_pCameraServices = 0xD58; // CPlayer_CameraServices*
+            public const nint m_pMovementServices = 0xD60; // CPlayer_MovementServices*
+            public const nint m_ServerViewAngleChanges = 0xD70; // C_UtlVectorEmbeddedNetworkVar<ViewAngleServerChange_t>
+            public const nint v_angle = 0xDD8; // QAngle
+            public const nint v_anglePrevious = 0xDE4; // QAngle
+            public const nint m_iHideHUD = 0xDF0; // uint32
+            public const nint m_skybox3d = 0xDF8; // sky3dparams_t
+            public const nint m_flDeathTime = 0xE88; // GameTime_t
+            public const nint m_vecPredictionError = 0xE8C; // Vector
+            public const nint m_flPredictionErrorTime = 0xE98; // GameTime_t
+            public const nint m_vecLastCameraSetupLocalOrigin = 0xE9C; // Vector
+            public const nint m_flLastCameraSetupTime = 0xEA8; // GameTime_t
+            public const nint m_flFOVSensitivityAdjust = 0xEAC; // float32
+            public const nint m_flMouseSensitivity = 0xEB0; // float32
+            public const nint m_vOldOrigin = 0xEB4; // Vector
+            public const nint m_flOldSimulationTime = 0xEC0; // float32
+            public const nint m_nLastExecutedCommandNumber = 0xEC4; // int32
+            public const nint m_nLastExecutedCommandTick = 0xEC8; // int32
+            public const nint m_hController = 0xECC; // CHandle<CBasePlayerController>
+            public const nint m_hDefaultController = 0xED0; // CHandle<CBasePlayerController>
+            public const nint m_bIsSwappingToPredictableController = 0xED4; // bool
         }
         // Parent: CCitadelPlayerPawnBase
         public static class C_CitadelPlayerPawn
         {
-            public const nint m_angEyeAngles = 0xF58; // QAngle
-            public const nint m_angClientCamera = 0xF70; // QAngle
-            public const nint m_eZipLineLaneColor = 0xF7C; // CMsgLaneColor
-            public const nint m_nLevel = 0xF80; // int32
-            public const nint m_nCurrencies = 0xF84; // int32[4]
-            public const nint m_nSpentCurrencies = 0xF94; // int32[4]
-            public const nint m_flLastSpawnTime = 0xFA4; // GameTime_t
-            public const nint m_flRespawnTime = 0xFA8; // GameTime_t
-            public const nint m_bInRegenerationZone = 0xFAC; // bool
-            public const nint m_bInItemShopZone = 0xFAD; // bool
-            public const nint m_timeRevealedOnMinimapByNPC = 0xFB0; // GameTime_t
-            public const nint m_vecFullSellPriceItems = 0xFB8; // C_NetworkUtlVectorBase<CUtlStringToken>
-            public const nint m_vecFullSellPriceAbilityUpgrades = 0xFD0; // C_NetworkUtlVectorBase<FullSellPriceAbilityUpgrades_t>
-            public const nint m_bNetworkDisconnected = 0xFE8; // bool
-            public const nint m_bHasIncomingThreats = 0xFE9; // bool
-            public const nint m_bLearningAbility = 0xFEA; // bool
-            public const nint m_nFlashStartTick = 0xFEC; // int32
-            public const nint m_nFlashMaxStartTick = 0xFF0; // int32
-            public const nint m_nFlashFadeStartTick = 0xFF4; // int32
-            public const nint m_nFlashEndTick = 0xFF8; // int32
-            public const nint m_nFlashMaxAlpha = 0xFFC; // int8
-            public const nint m_nDeducedLane = 0x1000; // int32
-            public const nint m_nSuccessiveDucks = 0x1004; // int8
-            public const nint m_flLastDuckTime = 0x1008; // GameTime_t
-            public const nint m_bDismissedReportCard = 0x100C; // bool
-            public const nint m_flCurrentHealingAmount = 0x1010; // float32
-            public const nint m_angLockedEyeAngles = 0x1014; // QAngle
-            public const nint m_CCitadelAbilityComponent = 0x1020; // CCitadelAbilityComponent
-            public const nint m_CCitadelHeroComponent = 0x11C0; // CCitadelHeroComponent
-            public const nint m_flRichPresenceUpdateInterval = 0x1288; // float32
-            public const nint m_bAnimGraphMovementClipped = 0x1380; // bool
-            public const nint m_bAnimGraphMovementDisableGravity = 0x1381; // bool
-            public const nint m_bAnimGraphMovementDirectAirControl = 0x1382; // bool
-            public const nint m_bLastMoveWasAnimGraph = 0x1383; // bool
-            public const nint m_flPredTimeSlowedStart = 0x1384; // GameTime_t
-            public const nint m_flPredTimeSlowedEnd = 0x1388; // GameTime_t
-            public const nint m_flPredSlowSpeed = 0x138C; // float32
-            public const nint m_flTimeSlowedStart = 0x1390; // GameTime_t[4]
-            public const nint m_flTimeSlowedEnd = 0x13A0; // GameTime_t[4]
-            public const nint m_flSlowSpeed = 0x13B0; // float32[4]
-            public const nint m_flSprintAnimSuppressEndTime = 0x13C0; // GameTime_t
-            public const nint m_iCurSlowSlot = 0x13C4; // int32
-            public const nint m_vShootTestOffsetStanding = 0x13C8; // Vector
-            public const nint m_vShootTestOffsetCrouching = 0x13D4; // Vector
-            public const nint m_leanStartTime = 0x13E0; // GameTime_t
+            public const nint m_angEyeAngles = 0xF50; // QAngle
+            public const nint m_angClientCamera = 0xF68; // QAngle
+            public const nint m_eZipLineLaneColor = 0xF74; // CMsgLaneColor
+            public const nint m_nLevel = 0xF78; // int32
+            public const nint m_nCurrencies = 0xF7C; // int32[4]
+            public const nint m_nSpentCurrencies = 0xF8C; // int32[4]
+            public const nint m_flLastSpawnTime = 0xF9C; // GameTime_t
+            public const nint m_flRespawnTime = 0xFA0; // GameTime_t
+            public const nint m_bInRegenerationZone = 0xFA4; // bool
+            public const nint m_bInItemShopZone = 0xFA5; // bool
+            public const nint m_timeRevealedOnMinimapByNPC = 0xFA8; // GameTime_t
+            public const nint m_vecFullSellPriceItems = 0xFB0; // C_NetworkUtlVectorBase<CUtlStringToken>
+            public const nint m_vecFullSellPriceAbilityUpgrades = 0xFC8; // C_NetworkUtlVectorBase<FullSellPriceAbilityUpgrades_t>
+            public const nint m_bNetworkDisconnected = 0xFE0; // bool
+            public const nint m_bHasIncomingThreats = 0xFE1; // bool
+            public const nint m_bLearningAbility = 0xFE2; // bool
+            public const nint m_nFlashStartTick = 0xFE4; // int32
+            public const nint m_nFlashMaxStartTick = 0xFE8; // int32
+            public const nint m_nFlashFadeStartTick = 0xFEC; // int32
+            public const nint m_nFlashEndTick = 0xFF0; // int32
+            public const nint m_nFlashMaxAlpha = 0xFF4; // int8
+            public const nint m_nDeducedLane = 0xFF8; // int32
+            public const nint m_nSuccessiveDucks = 0xFFC; // int8
+            public const nint m_flLastDuckTime = 0x1000; // GameTime_t
+            public const nint m_bDismissedReportCard = 0x1004; // bool
+            public const nint m_flCurrentHealingAmount = 0x1008; // float32
+            public const nint m_angLockedEyeAngles = 0x100C; // QAngle
+            public const nint m_CCitadelAbilityComponent = 0x1018; // CCitadelAbilityComponent
+            public const nint m_CCitadelHeroComponent = 0x11B8; // CCitadelHeroComponent
+            public const nint m_flRichPresenceUpdateInterval = 0x1280; // float32
+            public const nint m_bAnimGraphMovementClipped = 0x1378; // bool
+            public const nint m_bAnimGraphMovementDisableGravity = 0x1379; // bool
+            public const nint m_bAnimGraphMovementDirectAirControl = 0x137A; // bool
+            public const nint m_bLastMoveWasAnimGraph = 0x137B; // bool
+            public const nint m_flPredTimeSlowedStart = 0x137C; // GameTime_t
+            public const nint m_flPredTimeSlowedEnd = 0x1380; // GameTime_t
+            public const nint m_flPredSlowSpeed = 0x1384; // float32
+            public const nint m_flTimeSlowedStart = 0x1388; // GameTime_t[4]
+            public const nint m_flTimeSlowedEnd = 0x1398; // GameTime_t[4]
+            public const nint m_flSlowSpeed = 0x13A8; // float32[4]
+            public const nint m_flSprintAnimSuppressEndTime = 0x13B8; // GameTime_t
+            public const nint m_iCurSlowSlot = 0x13BC; // int32
+            public const nint m_vShootTestOffsetStanding = 0x13C0; // Vector
+            public const nint m_vShootTestOffsetCrouching = 0x13CC; // Vector
+            public const nint m_leanStartTime = 0x13D8; // GameTime_t
         }
         // Parent: None
         public static class PlayerDataGlobal_t
@@ -377,12 +377,12 @@ namespace offsetDump
             public const nint m_flCurrentSpinRate = 0xD38; // float32
             public const nint m_fFireDuration = 0xD40; // float32
             public const nint m_bFireOnEmpty = 0xD45; // bool
+            public const nint m_bHasReleasedForSemiAuto = 0xD46; // bool
             public const nint m_flNextDisarmSound = 0xD48; // GameTime_t
         }
         // Parent: CEntityInstance
         public static class C_BaseEntity
         {
-
             public const nint m_CBodyComponent = 0x40; // CBodyComponent*
             public const nint m_NetworkTransmitComponent = 0x48; // CNetworkTransmitComponent
             public const nint m_nLastThinkTick = 0x330; // GameTick_t
@@ -504,12 +504,15 @@ namespace offsetDump
             public const nint m_bInTeamChat = 0x73C; // bool
             public const nint m_bInPartyChat = 0x73D; // bool
             public const nint m_unHeroBuildID = 0x740; // HeroBuildID_t
-            public const nint m_hHeroPawn = 0x744; // CHandle<C_CitadelPlayerPawn>
-            public const nint m_PlayerDataGlobal = 0x780; // PlayerDataGlobal_t
-            public const nint m_nDeathReplayAvailable = 0x9A0; // int8
-            public const nint m_unLobbyPlayerSlot = 0x9A1; // CitadelLobbyPlayerSlot_t
-            public const nint m_bHasCheckedFriendName = 0x9A2; // bool
-            public const nint m_sFriendName = 0x9A8; // CUtlString
+            public const nint m_bLaneSwapLocked = 0x744; // bool
+            public const nint m_vecLaneSwapRequests = 0x748; // C_NetworkUtlVectorBase<CHandle<C_BaseEntity>>
+            public const nint m_vecLaneSwapRejects = 0x760; // C_NetworkUtlVectorBase<CHandle<C_BaseEntity>>
+            public const nint m_hHeroPawn = 0x778; // CHandle<C_CitadelPlayerPawn>
+            public const nint m_PlayerDataGlobal = 0x7B0; // PlayerDataGlobal_t
+            public const nint m_nDeathReplayAvailable = 0x9D0; // int8
+            public const nint m_unLobbyPlayerSlot = 0x9D1; // CitadelLobbyPlayerSlot_t
+            public const nint m_bHasCheckedFriendName = 0x9D2; // bool
+            public const nint m_sFriendName = 0x9D8; // CUtlString
         }
         // Parent: None
         public static class CGameSceneNode
