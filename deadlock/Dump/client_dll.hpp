@@ -116,7 +116,7 @@ namespace dumper {
             namespace CBasePlayerController {
                 constexpr std::ptrdiff_t m_nFinalPredictedTick = 0x560; // int32
                 constexpr std::ptrdiff_t m_CommandContext = 0x568; // C_CommandContext
-                constexpr std::ptrdiff_t m_nInButtonsWhichAreToggles = 0x600; // uint64
+                constexpr std::ptrdiff_t m_nInButtonsWhichAreToggles = 0x630; // uint64
                 constexpr std::ptrdiff_t m_nTickBase = 0x608; // uint32
                 constexpr std::ptrdiff_t m_hPawn = 0x60C; // CHandle<C_BasePlayerPawn>
                 constexpr std::ptrdiff_t m_bKnownTeamMismatch = 0x610; // bool

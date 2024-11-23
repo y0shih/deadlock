@@ -121,20 +121,20 @@ namespace offsetDump
         {
             public const nint m_nFinalPredictedTick = 0x570; // int32
             public const nint m_CommandContext = 0x578; // C_CommandContext
-            public const nint m_nInButtonsWhichAreToggles = 0x610; // uint64
-            public const nint m_nTickBase = 0x618; // uint32
-            public const nint m_hPawn = 0x61C; // CHandle<C_BasePlayerPawn>
-            public const nint m_bKnownTeamMismatch = 0x620; // bool
-            public const nint m_hPredictedPawn = 0x624; // CHandle<C_BasePlayerPawn>
-            public const nint m_nSplitScreenSlot = 0x628; // CSplitScreenSlot
-            public const nint m_hSplitOwner = 0x62C; // CHandle<CBasePlayerController>
-            public const nint m_hSplitScreenPlayers = 0x630; // CUtlVector<CHandle<CBasePlayerController>>
-            public const nint m_bIsHLTV = 0x648; // bool
-            public const nint m_iConnected = 0x64C; // PlayerConnectedState
-            public const nint m_iszPlayerName = 0x650; // char[128]
-            public const nint m_steamID = 0x6D8; // uint64
-            public const nint m_bIsLocalPlayerController = 0x6E0; // bool
-            public const nint m_iDesiredFOV = 0x6E4; // uint32
+            public const nint m_nInButtonsWhichAreToggles = 0x630; // uint64
+            public const nint m_nTickBase = 0x638; // uint32
+            public const nint m_hPawn = 0x63C; // CHandle<C_BasePlayerPawn>
+            public const nint m_bKnownTeamMismatch = 0x640; // bool
+            public const nint m_hPredictedPawn = 0x644; // CHandle<C_BasePlayerPawn>
+            public const nint m_nSplitScreenSlot = 0x648; // CSplitScreenSlot
+            public const nint m_hSplitOwner = 0x64C; // CHandle<CBasePlayerController>
+            public const nint m_hSplitScreenPlayers = 0x650; // CUtlVector<CHandle<CBasePlayerController>>
+            public const nint m_bIsHLTV = 0x668; // bool
+            public const nint m_iConnected = 0x66C; // PlayerConnectedState
+            public const nint m_iszPlayerName = 0x670; // char[128]
+            public const nint m_steamID = 0x6F8; // uint64
+            public const nint m_bIsLocalPlayerController = 0x700; // bool
+            public const nint m_iDesiredFOV = 0x704; // uint32
         }
         // Parent: C_BaseCombatCharacter
         public static class C_BasePlayerPawn
@@ -483,36 +483,36 @@ namespace offsetDump
         // Parent: CBasePlayerController
         public static class CCitadelPlayerController
         {
-            public const nint m_ePlayState = 0x700; // EPlayerPlayState
-            public const nint m_iGuidedBotMatchLastHits = 0x704; // int32
-            public const nint m_iGuidedBotMatchOrbsSecured = 0x708; // int32
-            public const nint m_iGuidedBotMatchOrbsDenied = 0x70C; // int32
-            public const nint m_iGuidedBotMatchDamageToGuardians = 0x710; // int32
-            public const nint m_iGuidedBotMatchDamageToPlayers = 0x714; // int32
-            public const nint m_iGuidedBotMatchDamageTaken = 0x718; // int32
-            public const nint m_iGuidedBotMatchNetWorth = 0x71C; // int32
-            public const nint m_iGuidedBotMatchModsPurchased = 0x720; // int32
-            public const nint m_iGuidedBotMatchAbilityUpgrades = 0x724; // int32
-            public const nint m_flGuideBotMatchLastTaskNagVO = 0x728; // float32
-            public const nint m_flGuideBotLastTimeTaskCompleted = 0x72C; // float32
-            public const nint m_eGuidedBotMatchObjective = 0x730; // EGuidedBotMatchObjective
-            public const nint m_nCurrentRank = 0x734; // int32
-            public const nint m_nAssignedLane = 0x738; // int8
-            public const nint m_nOriginalLaneAssignment = 0x739; // int8
-            public const nint m_bIsKingPanda = 0x73A; // bool
-            public const nint m_bBotDisconnectTakeover = 0x73B; // bool
-            public const nint m_bInTeamChat = 0x73C; // bool
-            public const nint m_bInPartyChat = 0x73D; // bool
-            public const nint m_unHeroBuildID = 0x740; // HeroBuildID_t
-            public const nint m_bLaneSwapLocked = 0x744; // bool
-            public const nint m_vecLaneSwapRequests = 0x748; // C_NetworkUtlVectorBase<CHandle<C_BaseEntity>>
-            public const nint m_vecLaneSwapRejects = 0x760; // C_NetworkUtlVectorBase<CHandle<C_BaseEntity>>
-            public const nint m_hHeroPawn = 0x778; // CHandle<C_CitadelPlayerPawn>
-            public const nint m_PlayerDataGlobal = 0x7B0; // PlayerDataGlobal_t
-            public const nint m_nDeathReplayAvailable = 0x9D0; // int8
-            public const nint m_unLobbyPlayerSlot = 0x9D1; // CitadelLobbyPlayerSlot_t
-            public const nint m_bHasCheckedFriendName = 0x9D2; // bool
-            public const nint m_sFriendName = 0x9D8; // CUtlString
+            public const nint m_ePlayState = 0x720; // EPlayerPlayState
+            public const nint m_iGuidedBotMatchLastHits = 0x724; // int32
+            public const nint m_iGuidedBotMatchOrbsSecured = 0x728; // int32
+            public const nint m_iGuidedBotMatchOrbsDenied = 0x72C; // int32
+            public const nint m_iGuidedBotMatchDamageToGuardians = 0x730; // int32
+            public const nint m_iGuidedBotMatchDamageToPlayers = 0x734; // int32
+            public const nint m_iGuidedBotMatchDamageTaken = 0x738; // int32
+            public const nint m_iGuidedBotMatchNetWorth = 0x73C; // int32
+            public const nint m_iGuidedBotMatchModsPurchased = 0x740; // int32
+            public const nint m_iGuidedBotMatchAbilityUpgrades = 0x744; // int32
+            public const nint m_flGuideBotMatchLastTaskNagVO = 0x748; // float32
+            public const nint m_flGuideBotLastTimeTaskCompleted = 0x74C; // float32
+            public const nint m_eGuidedBotMatchObjective = 0x750; // EGuidedBotMatchObjective
+            public const nint m_nCurrentRank = 0x754; // int32
+            public const nint m_nAssignedLane = 0x758; // int8
+            public const nint m_nOriginalLaneAssignment = 0x759; // int8
+            public const nint m_bIsKingPanda = 0x75A; // bool
+            public const nint m_bBotDisconnectTakeover = 0x75B; // bool
+            public const nint m_bInTeamChat = 0x75C; // bool
+            public const nint m_bInPartyChat = 0x75D; // bool
+            public const nint m_unHeroBuildID = 0x760; // HeroBuildID_t
+            public const nint m_bLaneSwapLocked = 0x764; // bool
+            public const nint m_vecLaneSwapRequests = 0x768; // C_NetworkUtlVectorBase<CHandle<C_BaseEntity>>
+            public const nint m_vecLaneSwapRejects = 0x780; // C_NetworkUtlVectorBase<CHandle<C_BaseEntity>>
+            public const nint m_hHeroPawn = 0x798; // CHandle<C_CitadelPlayerPawn>
+            public const nint m_PlayerDataGlobal = 0x7D0; // PlayerDataGlobal_t
+            public const nint m_nDeathReplayAvailable = 0x9F0; // int8
+            public const nint m_unLobbyPlayerSlot = 0x9F1; // CitadelLobbyPlayerSlot_t
+            public const nint m_bHasCheckedFriendName = 0x9F2; // bool
+            public const nint m_sFriendName = 0x9F8; // CUtlString
         }
         // Parent: None
         public static class CGameSceneNode
