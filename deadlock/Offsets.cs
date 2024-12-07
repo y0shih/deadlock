@@ -8,10 +8,10 @@ namespace deadlock
 {
     internal static class Offsets
     {       
-        internal static IntPtr dwEntityList = 0x219dd30;
-        internal static IntPtr LocalPlayerController = 0x25127e0;
-        internal static IntPtr ViewMatrix = 0x252c920;  
-        internal static IntPtr CCitadelCameraManager = 0x21f30f0;
+        internal static IntPtr dwEntityList = 0x21bb490;
+        internal static IntPtr LocalPlayerController = 0x253e1e0;
+        internal static IntPtr ViewMatrix = 0x2559530;  
+        internal static IntPtr CCitadelCameraManager = 0x2211b20;
 
         internal static IntPtr m_boneArray = 0x80;
         //C_CitadelBaseAbility

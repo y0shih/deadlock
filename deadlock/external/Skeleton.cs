@@ -73,6 +73,8 @@ namespace deadlock.external
                 HeadPos = ReadBoneByIndex(7);
             else if (_owner.Data.HeroID == Structs.HeroIds.Yamato)
                 HeadPos = ReadBoneByIndex(35);
+            else if (_owner.Data.HeroID == Structs.HeroIds.Mirage)
+                HeadPos = ReadBoneByIndex(8);
         }
 
         private Vector3 ReadBoneByIndex(int i)
