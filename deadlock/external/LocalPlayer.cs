@@ -15,6 +15,7 @@ namespace deadlock.external
     {
         public LocalPlayer()
         {
+            
         }
 
         public override void Update()

@@ -1,211 +1,207 @@
 using System;
+using System.Collections.Generic;
+using System.Net.Sockets;
 using System.Numerics;
 using System.Runtime.InteropServices;
-using static offsetDump.ClientDll;
+using System.Threading;
+using deadlock;
 using deadlock.external;
 using deadlock.external.Structs;
-using deadlock;
-using System.Diagnostics;
-class AimAssit
+
+namespace AimModule
 {
-    // Windows API for mouse control
-    [DllImport("user32.dll")]
-    static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, int dwExtraInfo);
-
-    const uint MOUSEEVENTF_MOVE = 0x0001;
-
-    // Config
-    private const float AimAssistThreshold = 10f; // Adjust as needed
-    private const float SmoothingFactor = 0.5f;   // Adjust for smoother aiming
-    private const int FOVRadius = 70;
-
-    // offests
-
-    private static long LocalPlayerController = Offsets.LocalPlayerController;    
-    private static long ViewMatrixAddress = Offsets.ViewMatrix;    
-    private static long EntityList = Offsets.dwEntityList;            
-    private static long CameraManager = Offsets.CCitadelCameraManager;         
-
-    // Process memory manager
-    private static long CameraAddress = Offsets.CCitadelCameraManager + 0x28;
-
-    static async Task Main(string[] args)
+    public static class AimUpdater
     {
-        Initialize();
-        Console.WriteLine("Aim Assist Initialized...");
+        public static Vector3 DisplayPos = new Vector3(0, 0, 0);
+        private static int? PlayerIndex = null;
+        private static int? EntityArrayIndex = null;
 
-        while (true)
+        // Update the AimUpdater to use the new camera and view matrix handling
+        public static void Update(AimSettings settings, UdpClient socket, External game)
         {
-            if (GetAsyncKeyState(0x45) != 0) // E key pressed
+            DisplayPos = new Vector3(0, 0, 0);
+
+            if 
+                return;
+
+            UpdateTargets(settings, game);
+
+            if (PlayerIndex.HasValue)
             {
-                AimAtClosestEnemy();
-            }
-            await Task.Delay(16); // 
-        }
-    }
+                var target = game.GetPlayerByIndex(PlayerIndex.Value);
+                var targetPos = target.Skeleton.TargetBonePos;
+                var targetPosScreen = targetPos;
+                // Use the updated method for transforming target positions
+                game.MatrixViewProjectionViewport.Transform(ref targetPosScreen);
+                DisplayPos = new Vector3(targetPosScreen.X, targetPosScreen.Y, 0f);
 
-    private static bool Initialize()
-    {
-        return Memory.Initialize();
-    }
-
-    private static void AimAtClosestEnemy()
-    {
-        var localPosition = GetCameraPosition();
-        var viewMatrix = GetViewMatrix();
-        var screenCenter = new Vector2(1920 / 2, 1080 / 2);
-
-        float closestDistance = float.MaxValue;
-        Vector3? closestEnemy = null;
-
-        for (int i = 1; i <= 16; i++) // 
-        {
-            var entity = GetEntity(i);
-            if (entity == null || entity.Team == GetLocalPlayerTeam() || entity.Health <= 0)
-                continue;
-
-            var screenPos = WorldToScreen(entity.Position, viewMatrix, 1920, 1080);
-            if (screenPos == null)
-                continue;
-
-            var distanceToScreenCenter = Vector2.Distance(screenPos.Value, screenCenter);
-
-            if (distanceToScreenCenter <= FOVRadius && distanceToScreenCenter < closestDistance)
-            {
-                closestDistance = distanceToScreenCenter;
-                closestEnemy = entity.Position;
+                AimTo(targetPos, settings.AnglePerPixel, game, settings.Players, socket);
             }
         }
 
-        if (closestEnemy != null)
+        private static void UpdateTargets()
         {
-            AdjustMouseTowards(closestEnemy.Value, localPosition, viewMatrix, screenCenter);
+
+        }
+
+        private static void FindPlayer(Program external, Player localPlayer)
+        {
+            if (!settings.Targeting)
+                PlayerIndex = null;
+
+            float minDistance = float.MaxValue;
+            var screenCenter = external.Screen.Center();
+
+            foreach (var player in external.Players)
+            {
+                if (player.Pawn.Team != external.GetLocalPlayer().Pawn.Team && player.IsAlive())
+                {
+                    var targetPos = player.Skeleton.TargetBonePos;
+
+                    if (external.MatrixViewProjection.Transform(ref targetPos) &&
+                        InFov(targetPos, screenCenter, settings.Fov))
+                    {
+                        var curDistance = Vector3.Distance(targetPos, Vector3FromPos2(screenCenter));
+
+                        if (curDistance < minDistance &&
+                            Vector3.Distance(player.GameSceneNode.Position, localPlayer.GameSceneNode.Position) < settings.Range)
+                        {
+                            minDistance = curDistance;
+                            PlayerIndex = player.Index;
+                        }
+                    }
+                }
+            }
+        }
+
+        private static void FindEntity(Memory game, Player localPlayer, AimProperties settings, AimSettings globalSettings)
+        {
+            if (!settings.Targeting)
+                EntityArrayIndex = null;
+
+            float minDistance = float.MaxValue;
+            int maxPriority = 0;
+            var screenCenter = game.Screen.Center();
+
+            for (int i = 0; i < game.Entities.Length; i++)
+            {
+                var entity = game.Entities[i];
+                if (entity.ContinueAlive() || entity.CheckCreep(localPlayer) || entity.GameSceneNode.Dormant)
+                    continue;
+
+                int priority = entity.Class.GetPriority(globalSettings.Priority);
+                if (priority >= maxPriority)
+                {
+                    if (priority > maxPriority)
+                        minDistance = float.MaxValue;
+
+                    var headPos = entity.GameSceneNode.Position;
+                    if (entity.Class == EntityType.Creep)
+                        headPos.Z += 35f;
+
+                    if (!entity.GameSceneNode.Dormant &&
+                        game.MatrixViewProjection.Transform(ref headPos) &&
+                        InFov(headPos, screenCenter, settings.Fov))
+                    {
+                        float curDistance = Vector3.Distance(headPos, Vector3FromPos2(screenCenter));
+
+                        if (curDistance < minDistance &&
+                            Vector3.Distance(entity.GameSceneNode.Position, localPlayer.GameSceneNode.Position) < settings.Range)
+                        {
+                            maxPriority = priority;
+                            minDistance = curDistance;
+                            EntityArrayIndex = i;
+                        }
+                    }
+                }
+            }
+        }
+
+        // private static Vector3 CalcVelocity(Vector3 worldPos, Vector3 velocity)
+        // {
+        //     if (!settings.VelocityPrediction)
+        //         return worldPos;
+
+        //     return new Vector3(
+        //         worldPos.X + velocity.X / settings.VelocityDiv,
+        //         worldPos.Y + velocity.Y / settings.VelocityDiv,
+        //         worldPos.Z + velocity.Z / settings.VelocityDiv
+        //     );
+        // }
+
+        // private static void AimTo(Vector3 targetWorld, float anglePerPixel,UdpClient socket)
+        // {
+        //     var aimDirection = GetAimDirection(Memory.ClientPtr);
+        //     var desiredDirection = Vector3.Normalize(targetWorld - CalcVelocity(Offsets.ViewMatrix, Offsets.LocalPlayerController).Pawn.Velocity));
+
+        //     var aimAngles = new Vector3
+        //     {
+        //         X = AngleToSigned(desiredDirection, aimDirection, new Vector3(0, 0, 1)),
+        //         Y = AngleToSigned(desiredDirection, aimDirection, Vector3.Normalize(Vector3.Cross(desiredDirection, new Vector3(0, 0, 1)))),
+        //         Z = 0
+        //     };
+
+        //     aimAngles *= 1f / Smooth;
+
+        //     var aimPixels = new Vector2(
+        //         MathF.Round((aimAngles.X / anglePerPixel) * 100f) / 100f,
+        //         MathF.Round((aimAngles.Y / anglePerPixel) * 100f) / 100f
+        //     );
+
+        //     if (aimPixels.X != 0f || aimPixels.Y != 0f)
+        //     {
+        //         Connection.SendMove(socket, (int)aimPixels.X, (int)aimPixels.Y);
+        //     }
+        // }
+
+        private static bool InFov(Vector3 point, Vector2 center, float radius)
+        {
+            return Vector3.Distance(point, Vector3FromPos2(center)) <= radius;
+        }
+
+        private static Vector3 Vector3FromPos2(Vector2 pos)
+        {
+            return new Vector3(pos.X, pos.Y, 0);
+        }
+
+        private static Vector3 GetAimDirection(IntPtr clientPtr, Vector3 punch)
+        {
+            var camera = .Default();
+            camera.Update(clientPtr);
+            camera.ViewAngles.X += punch.X;
+            camera.ViewAngles.Y += punch.Y;
+            return VectorFromEulerAngles(camera.ViewAngles.X, camera.ViewAngles.Y);
+        }
+
+        private static Vector3 VectorFromEulerAngles(float phi, float theta)
+        {
+            return Vector3.Normalize(new Vector3(
+                MathF.Cos(phi) * MathF.Cos(theta),
+                MathF.Cos(phi) * MathF.Sin(theta),
+                MathF.Sin(phi)
+            ));
+        }
+
+        private static float AngleToSigned(Vector3 vec1, Vector3 vec2, Vector3 about)
+        {
+            vec2.Z *= -1;
+
+            var plane = Plane.FromPoint(about, Vector3.Zero);
+            var vectorOnPlane = Vector3.Normalize(plane.ProjectVector(vec1));
+            var otherOnPlane = Vector3.Normalize(plane.ProjectVector(vec2));
+
+            var sign = Vector3.Dot(Vector3.Normalize(Vector3.Cross(vectorOnPlane, otherOnPlane)), plane.Normal);
+            return AngleBetweenUnitVectors(vectorOnPlane, otherOnPlane) * sign;
+        }
+
+        private static float AngleBetweenUnitVectors(Vector3 left, Vector3 right)
+        {
+            return MathF.Acos(Clamp(Vector3.Dot(left, right), -1f, 1f));
+        }
+
+        private static float Clamp(float value, float min, float max)
+        {
+            return MathF.Max(min, MathF.Min(max, value));
         }
     }
-
-    private static void AdjustMouseTowards(Vector3 targetPosition, Vector3 cameraPosition, float[,] viewMatrix, Vector2 screenCenter)
-    {
-        var screenPos = WorldToScreen(targetPosition, viewMatrix, 1920, 1080);
-        if (screenPos != null)
-        {
-            var deltaX = (screenPos.Value.X - screenCenter.X) * SmoothingFactor;
-            var deltaY = (screenPos.Value.Y - screenCenter.Y) * SmoothingFactor;
-
-            mouse_event(MOUSEEVENTF_MOVE, (uint)deltaX, (uint)deltaY, 0, 0);
-        }
-    }
-
-    private static Vector3 GetCameraPosition()
-    {
-        float x = Memory.Read<float>((nint)(CameraAddress + 0x38));
-        float y = Memory.Read<float>((nint)(CameraAddress + 0x3C)); 
-        float z = Memory.Read<float>((nint)(CameraAddress + 0x40));
-        return new Vector3(x, y, z);
-    }
-
-    private static float[,] GetViewMatrix()
-    {
-        float[,] matrix = new float[4, 4];
-        var process = Process.GetCurrentProcess();
-        var mainModule = process.MainModule ?? throw new InvalidOperationException("Could not access process main module");
-        
-        for (int i = 0; i < 16; i++)
-        {
-            matrix[i / 4, i % 4] = Memory.Read<float>(mainModule.BaseAddress + Offsets.ViewMatrix + i * 4);
-        }
-        return matrix;
-    }
-
-    private static Vector2? WorldToScreen(Vector3 worldPos, float[,] viewMatrix, int screenWidth, int screenHeight)
-    {
-        var clipCoords = new Vector4
-        {
-            X = worldPos.X * viewMatrix[0, 0] + worldPos.Y * viewMatrix[1, 0] + worldPos.Z * viewMatrix[2, 0] + viewMatrix[3, 0],
-            Y = worldPos.X * viewMatrix[0, 1] + worldPos.Y * viewMatrix[1, 1] + worldPos.Z * viewMatrix[2, 1] + viewMatrix[3, 1],
-            Z = worldPos.X * viewMatrix[0, 2] + worldPos.Y * viewMatrix[1, 2] + worldPos.Z * viewMatrix[2, 2] + viewMatrix[3, 2],
-            W = worldPos.X * viewMatrix[0, 3] + worldPos.Y * viewMatrix[1, 3] + worldPos.Z * viewMatrix[2, 3] + viewMatrix[3, 3]
-        };
-
-        if (clipCoords.W < 0.1f)
-            return null;
-
-        var ndc = new Vector2
-        {
-            X = clipCoords.X / clipCoords.W,
-            Y = clipCoords.Y / clipCoords.W
-        };
-
-        var screen = new Vector2
-        {
-            X = (screenWidth / 2f) * (ndc.X + 1),
-            Y = (screenHeight / 2f) * (1 - ndc.Y)
-        };
-
-        return screen;
-    }
-
-    private static Entity? GetEntity(int index)
-    {
-        long entityBase = Memory.Read<long>((nint)(EntityList + (8 * index)));
-        if (entityBase == 0)
-            return null;
-
-        long gameSceneNode = Memory.Read<long>((nint)(entityBase + C_BaseEntity.m_pGameSceneNode));
-        long modelState = Memory.Read<long>((nint)(gameSceneNode + CSkeletonInstance.m_modelState));
-        long boneArray = Memory.Read<long>((nint)(modelState + 0x80)); // m_boneArray offset
-
-        var skeleton = new Skeleton(new Player((int)entityBase));
-        skeleton.Update((IntPtr)gameSceneNode);
-        
-        var position = skeleton.HeadPos;
-        int health = Memory.Read<int>((nint)(entityBase + C_BaseEntity.m_iHealth));
-        int team = Memory.Read<int>((nint)(entityBase + C_BaseEntity.m_iTeamNum));
-
-        return new Entity { Position = position, Health = health, Team = team };
-    }
-
-    private static int GetHeadBoneIndex(int heroId)
-    {
-        return heroId switch
-        {
-            (int)HeroIds.Abrams => 7,
-            (int)HeroIds.Bebop => 6,
-            (int)HeroIds.Dynamo => 13,
-            (int)HeroIds.GreyTalon => 17,
-            (int)HeroIds.Haze => 7,
-            (int)HeroIds.Infernus => 30,
-            (int)HeroIds.Ivy => 13,
-            (int)HeroIds.Kelvin => 12,
-            (int)HeroIds.LadyGeist => 11,
-            (int)HeroIds.Lash => 12,
-            (int)HeroIds.McGinnis => 7,
-            (int)HeroIds.MoAndKrill => 25,
-            (int)HeroIds.Paradox => 8,
-            (int)HeroIds.Pocket => 13,
-            (int)HeroIds.Seven => 14,
-            (int)HeroIds.Shiv => 13,
-            (int)HeroIds.Vindicta => 7,
-            (int)HeroIds.Viscous => 7,
-            (int)HeroIds.Warden => 11,
-            (int)HeroIds.Wraith => 7,
-            (int)HeroIds.Yamato => 35,
-            (int)HeroIds.Mirage => 8,
-            // head bone index
-        };
-    }
-
-    private static int GetLocalPlayerTeam()
-    {
-        return Memory.Read<int>((nint)(Memory.ClientPtr + Offsets.LocalPlayerController + C_BaseEntity.m_iTeamNum));
-    }
-
-    private class Entity
-    {
-        public Vector3 Position { get; set; }
-        public int Health { get; set; }
-        public int Team { get; set; }
-    }
-
-    [DllImport("user32.dll")]
-    private static extern short GetAsyncKeyState(int vKey);
 }
